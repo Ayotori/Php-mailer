@@ -1,9 +1,9 @@
 <?php
-include('/var/www/domain.com/public_html/PHPMailer/src/PHPMailer.php');
-include('/var/www/domain.com/public_html/PHPMailer/src/OAuth.php');
-include('/var/www/domain.com/public_html/PHPMailer/src/Exception.php');
-include('/var/www/domain.com/public_html/PHPMailer/src/POP3.php');
-include('/var/www/domain.com/public_html/PHPMailer/src/SMTP.php');
+include('C:\Path\To\File\PHPMailer.php');
+include('C:\Path\To\File\OAuth.php');
+include('C:\Path\To\File\Exception.php');
+include('C:\Path\To\File\POP3.php');
+include('C:\Path\To\File\SMTP.php');
 use PHPMailer\PHPMailer\PHPMailer;
 $mail = new PHPMailer;
 ?>
