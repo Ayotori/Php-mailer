@@ -1,9 +1,9 @@
 <?php
-include('C:\Path\To\File\PHPMailer.php');
-include('C:\Path\To\File\OAuth.php');
-include('C:\Path\To\File\Exception.php');
-include('C:\Path\To\File\POP3.php');
-include('C:\Path\To\File\SMTP.php');
+include('D:\XAMPP\htdocs\PHPMailer-master\src\PHPMailer.php');
+include('D:\XAMPP\htdocs\PHPMailer-master\src\OAuth.php');
+include('D:\XAMPP\htdocs\PHPMailer-master\src\Exception.php');
+include('D:\XAMPP\htdocs\PHPMailer-master\src\POP3.php');
+include('D:\XAMPP\htdocs\PHPMailer-master\src\SMTP.php');
 use PHPMailer\PHPMailer\PHPMailer;
 $mail = new PHPMailer;
 ?>
@@ -12,27 +12,29 @@ $mail = new PHPMailer;
     <title>Send malware e-mails</title>
 </head>
 <body>
-    <form>
+    <form enctype="multipart/form-data" method='post'>
         E-mailadres
         <input type="text" name="email"><br>
         Onderwerp
         <input type="text" name="subject"><br>
         Bericht
         <textarea name="msg" id="" cols="30" rows="10"></textarea><br/>
+        <input type="file" name="file"><br/>
 
         <input type="submit" value="Verstuur email"/>
+
     </form>
     <?php
-    if (isset($_GET['msg'])) {
-        $data = $_GET['msg'];
+
+    if (isset($_POST['msg'])) {
+        $data = $_POST['msg'];
     }
-    if (isset($_GET['email'])) {
-        $email = $_GET['email'];
+    if (isset($_POST['email'])) {
+        $email = $_POST['email'];
     }
-    if (isset($_GET['subject'])) {
-        $subject = $_GET['subject'];
+    if (isset($_POST['subject'])) {
+        $subject = $_POST['subject'];
     }
-    $Attachment = '/var/www/domain.com/public_html/test2/msf.tar.xz';
     ?>
 
     <?php
@@ -42,8 +44,12 @@ $mail = new PHPMailer;
         $mailer->AddAddress ( $email );
         $mailer->Subject = $subject;
         $mailer->Body = $data;
-        $mailer->AddAttachment($Attachment, 'asdf.txt');
-        $mailer->Send();
+        $mailer->AddAttachment( $_FILES['file']['tmp_name'],$_FILES['file']['name']);
+        if($mailer->Send()) {
+          echo "<h1>Email verstuurd</h1>";
+        } else {
+          echo "<h1>Email NIET verstuurd</h1>";
+        }
     }
     ?>
 </body>
